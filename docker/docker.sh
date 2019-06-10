@@ -7,7 +7,7 @@ docker build -t sensors .
 
 function attach {
 docker run -it --privileged --rm --name sensors-devel \
-	--device=$DEVICE
+	--device=$DEVICE \
 	--link influxdb_cont:influxdb_cont \
 	--volume /home/pi/github/receive-weather-data/docker/homeClimate:/app/homeClimate \
 	--volume /etc/localtime:/etc/localtime:ro \
@@ -19,7 +19,7 @@ function run {
 docker run -d -t --privileged --restart=always \
 	--name sensors-read \
 	--link influxdb_cont:influxdb_cont \
-	--device=$DEVICE
+	--device=$DEVICE \
 	--volume /etc/localtime:/etc/localtime:ro \
 	sensors:latest /bin/bash 
 }
