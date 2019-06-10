@@ -21,7 +21,7 @@ docker run -d -t --privileged --restart=always \
 	--link influxdb_cont:influxdb_cont \
 	--device=$DEVICE \
 	--volume /etc/localtime:/etc/localtime:ro \
-	sensors:latest /bin/bash 
+	sensors:latest
 }
 
 if [[ $# -ne 1 ]]; then
