@@ -1,3 +1,4 @@
+#!/bin/bash
 # local connection to the 868MHz antenna
 DEVICE="/dev/bus/usb/001/003"
 
@@ -24,8 +25,17 @@ docker run -d -t --privileged --restart=always \
 	sensors:latest
 }
 
+function stop {
+docker container stop sensors-read
+docker container rm sensors-read
+}
+
+function rm {
+docker container rm sensors-read
+}
+
 if [[ $# -ne 1 ]]; then
-	echo "Usage: docker.sh (build|attach|run)"
+	echo "Usage: docker.sh (build|attach|run|stop|rm)"
 	exit 1 
 elif [[ $1 == "build" ]]; then
 	build
@@ -33,6 +43,10 @@ elif [[ $1 == "attach" ]]; then
 	attach
 elif [[ $1 == "run" ]]; then
 	run
+elif [[ $1 == "stop" ]]; then
+	stop
+elif [[ $1 == "rm" ]]; then
+	rm
 else
 	echo "Unknown argument: $1"
 fi
